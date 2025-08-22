@@ -1,138 +1,135 @@
 # Next.js Cart - E-commerce Platform
 
-A modern, full-featured e-commerce platform built with Next.js 15, featuring authentication, product management, and a responsive design.
+A modern, full-stack e-commerce platform built with Next.js 14, featuring user authentication, product management, and a responsive shopping experience.
 
-## 🚀 Features
+## 🚀 Project Description
 
-### Public Features
-- **Homepage**: Modern hero section with call-to-action
-- **Products**: Browse and view product listings
-- **Product Details**: Comprehensive product information with features
-- **About Page**: Company information and team details
-- **Contact Page**: Contact form and company information
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
+Next.js Cart is a comprehensive e-commerce solution that provides:
 
-### Authentication & User Management
-- **Multiple Auth Providers**: Google OAuth, GitHub OAuth, and email/password
-- **User Registration**: Sign up with email or OAuth
-- **User Login**: Secure authentication with multiple options
-- **User Profiles**: Personal information and preferences
-- **Role-based Access**: Admin and user roles
-
-### Admin Dashboard
-- **Dashboard Overview**: Statistics, recent orders, and quick actions
-- **Product Management**: Add, edit, and delete products
-- **Order Management**: View and manage customer orders
-- **User Management**: Manage customer accounts
-- **Protected Routes**: Secure admin-only access
-
-### Technical Features
-- **MongoDB Integration**: Scalable database with Mongoose ODM
-- **NextAuth.js**: Secure authentication and session management
-- **Image Upload**: ImgBB integration for product images
-- **API Routes**: RESTful API for all operations
-- **Form Validation**: Client and server-side validation
-- **Responsive UI**: Modern design with Tailwind CSS
+- **User Authentication**: Secure login/signup with NextAuth.js and MongoDB
+- **Product Management**: Add, edit, and manage products with image uploads
+- **Shopping Experience**: Browse products, view details, and manage cart
+- **Admin Dashboard**: Dedicated dashboard for product management
+- **Responsive Design**: Modern UI that works on all devices
+- **Dark/Light Theme**: Toggle between themes for better user experience
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15, React 19, Tailwind CSS
+- **Frontend**: Next.js 14, React, Tailwind CSS
 - **Backend**: Next.js API Routes
-- **Database**: MongoDB with Mongoose
+- **Database**: MongoDB with Mongoose ODM
 - **Authentication**: NextAuth.js
-- **Image Storage**: ImgBB API
-- **Styling**: Tailwind CSS
-- **Icons**: Heroicons (SVG)
+- **Styling**: Tailwind CSS with custom components
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
-- MongoDB database
-- Google OAuth credentials
-- GitHub OAuth credentials
-- ImgBB API key
+Before running this project, make sure you have:
 
-## 🔧 Installation
+- Node.js 18+ installed
+- MongoDB database (local or Atlas)
+- Git for version control
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd next-cart
-   ```
+## ⚙️ Setup & Installation
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/tazminur12/next-cart.git
+cd next-cart
+```
 
-3. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
-   ```env
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
-   DB_NAME=products_app
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   GITHUB_ID=your_github_client_id
-   GITHUB_SECRET=your_github_client_secret
-   IMGBB_API_KEY=your_imgbb_api_key
-   NEXTAUTH_SECRET=your_super_secret_key_here
-   NEXTAUTH_URL=http://localhost:3000
-   ```
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-4. **Set up OAuth applications**
-   - **Google**: Create OAuth 2.0 credentials in Google Cloud Console
-   - **GitHub**: Create OAuth App in GitHub Developer Settings
-   - **ImgBB**: Get API key from ImgBB
+### 3. Environment Configuration
+Create a `.env.local` file in the root directory:
 
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+```env
+# MongoDB Connection
+MONGODB_URI=your_mongodb_connection_string
 
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+# NextAuth Configuration
+NEXTAUTH_SECRET=your_nextauth_secret_key
+NEXTAUTH_URL=http://localhost:3000
 
-## 🗄️ Database Setup
+# Optional: Google OAuth (if using Google login)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
 
-The application uses MongoDB with the following collections:
+### 4. Database Setup
+- Ensure MongoDB is running
+- The application will automatically create collections on first run
+- Default collections: `users`, `products`, `sessions`, `accounts`
 
-### Users Collection
-- User profiles with authentication details
-- Role-based access control
-- OAuth provider information
+### 5. Run the Development Server
+```bash
+npm run dev
+```
 
-### Products Collection
-- Product information and details
-- Image URLs and features
-- Stock and pricing information
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🔐 Authentication Setup
+### 6. Build for Production
+```bash
+npm run build
+npm start
+```
 
-### Google OAuth
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials
-5. Add authorized redirect URIs: `http://localhost:3000/api/auth/callback/google`
+## 🗺️ Route Summary
 
-### GitHub OAuth
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Create new OAuth App
-3. Set Authorization callback URL: `http://localhost:3000/api/auth/callback/github`
+### Public Routes
+- **`/`** - Home page with featured products
+- **`/about`** - About page
+- **`/contact`** - Contact page
+- **`/products`** - Product listing page
+- **`/products/[id]`** - Individual product detail page
+- **`/login`** - User login page
+- **`/signup`** - User registration page
 
-## 📱 Usage
+### Protected Routes (Require Authentication)
+- **`/dashboard`** - Main dashboard overview
+- **`/dashboard/add-product`** - Add new product form
+- **`/dashboard/my-products`** - View and manage user's products
+- **`/dashboard/edit-product/[id]`** - Edit existing product
 
-### For Customers
-1. **Browse Products**: Visit `/products` to see all available products
-2. **View Details**: Click on any product to see detailed information
-3. **Create Account**: Sign up using email or OAuth providers
-4. **Contact Support**: Use the contact form for inquiries
+### API Routes
+- **`/api/auth/[...nextauth]`** - NextAuth.js authentication endpoints
+- **`/api/auth/signup`** - User registration endpoint
+- **`/api/products`** - Product CRUD operations
+- **`/api/products/[id]`** - Individual product operations
+- **`/api/products/my-products`** - Get user's products
+- **`/api/upload`** - Image upload endpoint
+- **`/api/email`** - Email functionality
 
-### For Administrators
-1. **Access Dashboard**: Login and navigate to `/dashboard`
-2. **Manage Products**: Add, edit, or remove products
-3. **View Orders**: Monitor customer orders and status
-4. **User Management**: Manage customer accounts
+## 🔐 Authentication Features
+
+- **Local Authentication**: Email/password registration and login
+- **Session Management**: Secure session handling with NextAuth.js
+- **Protected Routes**: Automatic redirect for unauthenticated users
+- **User Roles**: Basic user management system
+
+## 📱 Features
+
+### For Users
+- Browse and search products
+- View detailed product information
+- User registration and login
+- Personal dashboard
+
+### For Product Owners
+- Add new products with images
+- Edit existing products
+- Manage product inventory
+- View product analytics
+
+## 🎨 UI Components
+
+- **Navbar**: Responsive navigation with theme toggle
+- **Footer**: Site information and links
+- **Product Cards**: Attractive product display
+- **Forms**: User-friendly input forms
+- **Theme Toggle**: Dark/light mode switch
 
 ## 🚀 Deployment
 
@@ -140,85 +137,33 @@ The application uses MongoDB with the following collections:
 1. Push your code to GitHub
 2. Connect your repository to Vercel
 3. Add environment variables in Vercel dashboard
-4. Deploy automatically
+4. Deploy automatically on push
 
 ### Other Platforms
-1. Build the application: `npm run build`
-2. Start production server: `npm start`
-3. Set production environment variables
-4. Configure your hosting platform
-
-## 🔒 Security Features
-
-- **JWT Tokens**: Secure session management
-- **Password Hashing**: Bcrypt for password security
-- **Input Validation**: Client and server-side validation
-- **CORS Protection**: Configured for production use
-- **Environment Variables**: Secure credential management
-
-## 📁 Project Structure
-
-```
-next-cart/
-├── src/
-│   ├── app/                    # Next.js 13+ app directory
-│   │   ├── api/               # API routes
-│   │   │   ├── auth/          # Authentication endpoints
-│   │   │   ├── products/      # Product management
-│   │   │   └── upload/        # Image upload
-│   │   ├── dashboard/         # Admin dashboard
-│   │   ├── products/          # Product pages
-│   │   ├── login/             # Authentication pages
-│   │   └── signup/            # User registration
-│   ├── components/            # Reusable components
-│   ├── lib/                   # Utility functions
-│   └── models/                # Database models
-├── public/                    # Static assets
-├── .env.local                 # Environment variables
-└── package.json               # Dependencies
-```
-
-## 🧪 Testing
-
-```bash
-# Run linting
-npm run lint
-
-# Run tests (when implemented)
-npm test
-
-# Build for production
-npm run build
-```
+- **Netlify**: Build and deploy from GitHub
+- **Railway**: Full-stack deployment with database
+- **DigitalOcean**: Custom server deployment
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is open source and available under the [MIT License](LICENSE).
 
 ## 🆘 Support
 
-If you encounter any issues:
+If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/your-repo/issues) page
-2. Create a new issue with detailed information
-3. Contact the development team
-
-## 🔄 Updates
-
-Stay updated with the latest features and security patches by:
-
-1. Following the repository
-2. Checking release notes
-3. Updating dependencies regularly
+1. Check the [Issues](https://github.com/tazminur12/next-cart/issues) page
+2. Create a new issue with detailed description
+3. Contact the maintainers
 
 ---
 
-**Built with ❤️ using Next.js and modern web technologies**
+**Happy Coding! 🎉**
